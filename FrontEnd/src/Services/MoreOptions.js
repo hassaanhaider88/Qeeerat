@@ -1,0 +1,34 @@
+export const hanldeUserNotInterestInPost=()=>{
+    // here will be first getiing post url then make request 
+    alert('hanldeUserNotInterestInPost will be included')
+    console.log('clicking')
+}
+
+
+export const hanldeUserFollowClick=()=>{
+    // here will be first getiing post url then make request 
+    alert('hanldeUserFollowClick will be included')
+}
+
+export const hanldeVideoMuteClick =()=>{
+    // here will be first getiing post url then make request 
+    alert('hanldeVideoMuteClick  will be included')
+}
+
+export const hanldeBlockPostCreater=()=>{
+    // here will be first getiing post url then make request 
+    alert('hanldeBlockPostCreater will be included')
+}
+
+export const hanldeReportPostClick =()=>{
+    // here will be first getiing post url then make request 
+    alert('hanldeReportPostClick  will be included')
+}
+
+export const handleUserVidoeLikeClick = () =>{
+    alert('handleUserVidoeClick will be included')
+}
+
+export const hanldeUserVideoSaveClick = () =>{
+    alert('VideoSave click')
+}

@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-ssm: 480px;
+}
+
+body{
+    overflow-x: hidden;
+    user-select: none;
+}
+
+html {
+  scrollbar-width: auto;
+  scrollbar-color: black;
+}
+
+/* Scrollbar width */
+html::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Background of scrollbar */
+html::-webkit-scrollbar-track {
+  background:  transparent;
+}
+
+/* Scroll thumb */
+html::-webkit-scrollbar-thumb {
+  background: #88358F;
+  border-radius: 10px;
+}
+
+/* Hover effect */
+html::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
