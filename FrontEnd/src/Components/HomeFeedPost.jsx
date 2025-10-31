@@ -5,9 +5,9 @@ import MoreOptionsDiv from './MoreOptionsDiv';
 import { FcLike } from 'react-icons/fc';
 import { hanldeUserFollowClick } from '../Services/MoreOptions';
 import SinlgeVidoeCard from './SinlgeVidoeCard';
+import { LiaSadTear } from 'react-icons/lia';
 
 const HomeFeedPost = ({post}) => {
-    console.log(post)
  const [isVerified, setIsVerified] =  useState(true);
  const [IsShowMoreOptions, setIsShowMoreOptions] =  useState(false);
  const [IsFollow, setIsFollow] =  useState(false);
@@ -21,7 +21,7 @@ const HomeFeedPost = ({post}) => {
     setIsFollow(!IsFollow)
  }
   return ( 
-    <div className='WholePost border-b-2 mb-5 pb-5 border-t-2 w-full px-5'>
+    <div className='WholePost relative border-b-2 mb-5 pb-5 border-t-2 w-full px-5'>
         <div className="UserInfoWIthThreeDots w-full flex justify-between  items-center">
    <div className="Userinfo w-full flex justify-start items-center gap-3">
     <img src={post.videoCreated.ImageUrl} className='w-18 h-18 rounded-full' alt="UserName" />
@@ -44,9 +44,37 @@ const HomeFeedPost = ({post}) => {
    </div>
    {
     IsShowMoreOptions &&
-    <div className="absolute py-3 px-5 rounded-4xl right-0 bottom-10">
+    <div className="absolute py-3 z-50 px-5 rounded-4xl right-0 bottom-10">
     {/* here i will how the moreoption card inshallah */}
-    <MoreOptionsDiv IsShowMoreOptions={IsShowMoreOptions} setIsShowMoreOptions={setIsShowMoreOptions}/>
+      <div className='AllOptions relative z-20 w-full py-2 bg-gray-900 text-white px-4 flex flex-col justify-center items-center rounded-3xl'>
+          <div onClick={()=>{hanldeUserNotInterestInPost();setIsShowMoreOptions(!IsShowMoreOptions)}} className="Option flex items-center w-full rounded-3xl py-2 px-3 gap-3 hover:bg-gray-500 cursor-pointer duration-300 text-lg transition-all">
+               <LiaSadTear />
+              <p>Not Ineterested in post</p>
+          </div>
+    
+          <div onClick={()=>{hanldeUserFollowClick();setIsShowMoreOptions(!IsShowMoreOptions)}}  className="Option flex items-center w-full rounded-3xl py-2 px-3 gap-3 hover:bg-gray-500 cursor-pointer duration-300 text-lg transition-all">
+               <LiaSadTear />
+              <p>Follow UserName</p>
+          </div>
+    
+          <div onClick={()=>{hanldeVideoMuteClick();setIsShowMoreOptions(!IsShowMoreOptions)}}  className="Option flex items-center w-full rounded-3xl py-2 px-3 gap-3 hover:bg-gray-500 cursor-pointer duration-300 text-lg transition-all">
+               <LiaSadTear />
+              <p>Mute</p>
+          </div>
+    
+          <div onClick={()=>{hanldeBlockPostCreater();setIsShowMoreOptions(!IsShowMoreOptions)}}  className="Option flex items-center w-full rounded-3xl py-2 px-3 gap-3 hover:bg-gray-500 cursor-pointer duration-300 text-lg transition-all">
+               <LiaSadTear />
+              <p>Block UserName</p>
+          </div>
+    
+          <div onClick={()=>{hanldeReportPostClick();setIsShowMoreOptions(!IsShowMoreOptions)}}  className="Option flex items-center w-full rounded-3xl py-2 px-3 gap-3 hover:bg-gray-500 cursor-pointer duration-300 text-lg transition-all">
+               <LiaSadTear />
+              <p>Report Post</p>
+          </div>
+          
+    
+        </div>
+    {/* <MoreOptionsDiv IsShowMoreOptions={IsShowMoreOptions} setIsShowMoreOptions={setIsShowMoreOptions}/> */}
    </div>}
    <div>
 

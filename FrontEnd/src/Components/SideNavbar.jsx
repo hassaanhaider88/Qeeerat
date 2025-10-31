@@ -44,7 +44,7 @@ redirectTo : "/premium"
     <div className='lg:w-[25%] sticky border-r-2 border-gray-500 overflow-x-hidden -top-1 sm:flex flex-col justify-between h-screen md:w-[32%] text-nowrap text-white py-3 px-5 hidden  w-0 sm:w-[150px] bg-black'>
        <div>
         <div className="LogoGoesHere flex justify-center items-center md:justify-start w-full">
-        <img className='w-25 h-25 ' src="./MagicalPrompt.png" alt="" />
+        <img className='h-30 ' src="./QeeeratLogoWithBG.png" alt="" />
        </div>
       <div className='w-full flex gap-2 py-3 flex-col'>
      {

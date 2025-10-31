@@ -1,3 +1,6 @@
+import usePostData from "../Store/usePostData";
+import PostData from "../DummyData/PostData.js";
+
 export const hanldeUserNotInterestInPost=()=>{
     // here will be first getiing post url then make request 
     alert('hanldeUserNotInterestInPost will be included')
@@ -31,4 +34,16 @@ export const handleUserVidoeLikeClick = () =>{
 
 export const hanldeUserVideoSaveClick = () =>{
     alert('VideoSave click')
+}
+
+export const handleUserSearchPosts = (SurahName, AyatFrom, AyatTo,setPostData) =>{
+    console.log(setPostData)
+    alert(`Searching Posts for Surah: ${SurahName}, Ayat From: ${AyatFrom}, Ayat To: ${AyatTo}`);
+    return true;
+}
+
+export const handleFetchMorePosts = (setPostData) =>{
+    // this will be fetching more posts on scroll down 
+    console.log('fetching ......')
+    setPostData(PostData);
 }
