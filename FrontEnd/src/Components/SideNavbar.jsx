@@ -2,7 +2,7 @@ import { BiDotsVertical } from 'react-icons/bi'
 import { FaRegUser } from 'react-icons/fa'
 import { GoHome } from 'react-icons/go'
 import { IoMdAdd } from 'react-icons/io'
-import { IoNotificationsOutline } from 'react-icons/io5'
+import { IoNotificationsOutline, IoSettings } from 'react-icons/io5'
 import { MdOutlineExplore, MdOutlineWorkspacePremium } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 
@@ -58,10 +58,9 @@ redirectTo : "/premium"
       </div>
        </div>
        {/* show only when user is logged in  */}
-       <div className='flex flex-col md:flex-row gap-3 w-full justify-evenly items-center'>
-        <Link to={'/login'} className='py-1 hover:scale-105 px-4 rounded-4xl  duration-100 transition-all cursor-pointer active:scale-95 outline-3 outline-[#5f55e69f] hover:outline-[#da55e69f] '>Login</Link>
-        <Link to={'sign-up'} className='py-2 px-4 rounded-4xl  bg-[#da55e69f] hover:bg-[#da55e6d3] duration-100 transition-all cursor-pointer active:scale-95 hover:outline-3 outline-[#5f55e69f] '>Sign Up</Link>
-       </div>
+       <Link to={'/settings'} className='flex mb-2 cursor-pointer flex-col md:flex-row gap-3 w-full justify-start items-center'>
+        <IoSettings size={'25'}/>
+       </Link>
     </div>
   )
 }

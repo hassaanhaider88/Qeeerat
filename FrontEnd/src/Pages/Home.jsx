@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideNavbar from '../Components/SideNavbar'
 import HomeFeed from './HomeFeed'
 import { Route, Routes } from 'react-router-dom'
@@ -10,7 +10,18 @@ import MobileBar from '../Components/MobileBar'
 import Premium from './Premium'
 import Login from './Login'
 import SignUp from './SignUp'
+import Settings from './Settings'
+import useUserData from "../store/useUserData";
+
 const HomeWithLogin = () => {
+const {userData,setUserData} = useUserData();
+useEffect(()=>{
+  var  StoreUser = JSON.parse(localStorage.getItem("QeeeratUserData"))
+  console.log(StoreUser)
+  
+  
+},[])
+
   return (
     <div className='w-full min-h-screen flex'>
      <SideNavbar/>
@@ -22,7 +33,7 @@ const HomeWithLogin = () => {
       <Route path='/profile' element={<Profile/>}/>
       <Route path='/add-new' element={<AddNewPrompt/>}/>
       <Route path='/premium' element={<Premium/>}/>
-
+      <Route path='/settings' element={<Settings/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/sign-up' element={<SignUp/>} />
 

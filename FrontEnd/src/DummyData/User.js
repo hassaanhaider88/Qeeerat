@@ -16,6 +16,20 @@ var User = {
     Following : [],
     Follower : [],
     AccountStatus: "active", // ✅ could be: 'active' | 'banned' | 'suspended'
+    Notifications : [
+        {
+    id: 1,
+    description: "You have received a new message from John.",
+    time: "2025-10-31T13:10:00Z",
+    IsReaded: false,
+  },
+  {
+    id: 2,
+    description: "Ali liked your recent post.",
+    time: "2025-10-31T13:10:00Z",
+    IsReaded: false,
+  },
+    ],
 }
 
 export default User;
