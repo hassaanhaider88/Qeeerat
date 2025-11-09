@@ -58,3 +58,8 @@ export const hanldeUserClickToPremium = () =>{
     alert('hanldeUserClickToPremium will be included')
     return true;
 }
+
+export const handleUserEditProfile = (Name, UserName, Location, Bio,UserSelectProfileImg) =>{
+    alert(`Editing Profile with Name: ${Name}, UserName: ${UserName}, Location: ${Location}, Bio: ${Bio}`);
+    return true;
+}
