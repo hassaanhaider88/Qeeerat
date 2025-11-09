@@ -5,13 +5,13 @@ import { Route, Routes } from 'react-router-dom'
 import Explore from './Explore'
 import Notification from './Notification'
 import Profile from './Profile'
-import AddNewPrompt from './AddNewPrompt'
 import MobileBar from '../Components/MobileBar'
 import Premium from './Premium'
 import Login from './Login'
 import SignUp from './SignUp'
 import Settings from './Settings'
 import useUserData from "../store/useUserData";
+import AddNewPost from './AddNewPost'
 
 const HomeWithLogin = () => {
 const {userData,setUserData} = useUserData();
@@ -31,7 +31,7 @@ useEffect(()=>{
       <Route path='/explore' element={<Explore/>}/>
       <Route path='/notification' element={<Notification/>}/>
       <Route path='/profile' element={<Profile/>}/>
-      <Route path='/add-new' element={<AddNewPrompt/>}/>
+      <Route path='/add-new' element={<AddNewPost/>}/>
       <Route path='/premium' element={<Premium/>}/>
       <Route path='/settings' element={<Settings/>} />
       <Route path='/login' element={<Login/>} />

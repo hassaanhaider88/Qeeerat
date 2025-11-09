@@ -10,6 +10,7 @@ import {MdDownloadForOffline} from 'react-icons/md'
 import CustomVideoTag from './CustomVideoTag';
 // import VideoUrl from "../../Demmovideo.mp4"
 import VideoUrl from "../../public/Demmovideo.mp4"
+import ReduceNumber from '../Services/ReduceNumber';
 
 const SinlgeVidoeCard = ({post}) => {
  const [VidoeLike,setVideoLike] =  useState(false);
@@ -43,7 +44,7 @@ function hanldeVidoeDownloadClick (){
                 VidoeLike ?  <FaHeart  className='text-red-500 active:opacity-10 duration-100 transition-all  w-8 h-8'/> : <FiHeart  className='w-8 active:opacity-10 duration-100 transition-all h-8'/> 
             }
             
-            <p className='text-sm'>{post.videoLikes}</p>
+            <p className='text-sm'>{ReduceNumber(post.videoLikes)}</p>
          </div>
 
          <div onClick={handleVideoSaveClick} className='w-8 h-8 cursor-pointer duration-150 transition-all hover:scale-90'>

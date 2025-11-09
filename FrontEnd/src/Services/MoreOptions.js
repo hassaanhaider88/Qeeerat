@@ -47,3 +47,14 @@ export const handleFetchMorePosts = (setPostData) =>{
     console.log('fetching ......')
     setPostData(PostData);
 }
+
+export const handleUserSubmitPosts = (SurahName, AyatFrom, AyatTo,setPostData) =>{
+    console.log(setPostData)
+    alert(`Submitting Posts for Surah: ${SurahName}, Ayat From: ${AyatFrom}, Ayat To: ${AyatTo}`);
+    return true;
+}
+
+export const hanldeUserClickToPremium = () =>{
+    alert('hanldeUserClickToPremium will be included')
+    return true;
+}

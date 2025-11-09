@@ -4,7 +4,7 @@ const PostData = [
   {
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
-    videoLikes: 200,
+    videoLikes: 20090,
     SurahName: "Al-Mu’minoon",
     AyatFrom: 84,
     AyatTo: 87,
@@ -13,7 +13,7 @@ const PostData = [
   {
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
-    videoLikes: 350,
+    videoLikes: 35000,
     SurahName: "Al-Fatiha",
     AyatFrom: 1,
     AyatTo: 7,
