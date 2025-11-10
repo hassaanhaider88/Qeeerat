@@ -207,7 +207,6 @@ export default function SelectCountry({ Location, setLocation }) {
   }, [Location]);
 
   const handleSelectCountry = (country) => {
-    console.log(country)
     setLocation(country);
     setShowDropDown(false);
   };

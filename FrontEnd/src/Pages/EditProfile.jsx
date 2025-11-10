@@ -15,7 +15,6 @@ const EditProfile = () => {
 
   const hanleUserProfileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     setUserSelectProfileImg(URL.createObjectURL(file));
   };
 
@@ -30,7 +29,6 @@ const EditProfile = () => {
       return;
     }
     // Logic to save changes goes here
-    console.log("Changes saved!");
     handleUserEditProfile(UName, UUserName, Location, Bio, UserSelectProfileImg);
   };
 
