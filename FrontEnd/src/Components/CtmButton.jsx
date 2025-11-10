@@ -5,7 +5,7 @@ const CtmButton = ({ Text = "Click" }) => {
   const letters = Text.split("");
 
   return (
-    <button className="relative  font-bold text-white rounded-full cursor-pointer w-[120px] h-[42.66px] bg-[#3653f8] flex justify-center items-center overflow-hidden group">
+    <button className="relative  font-bold text-white rounded-full cursor-pointer w-[120px] h-[42.66px] bg-[#88358F] flex justify-center items-center overflow-hidden group">
       {/* First set of letters */}
       <span className="flex overflow-hidden group-hover:absolute">
         {letters.map((char, index) => (

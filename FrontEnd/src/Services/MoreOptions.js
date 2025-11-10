@@ -74,3 +74,23 @@ export const handleUserDeleteAcount = () =>{
      toast.success('Successfully Delete Acount');
     return true;
 }
+
+export const hanldeUserClickOldPassConfirm = (OldPass) =>{
+    // here will be api call to confirm old password
+    if(OldPass === 'HMK@088'){
+        toast.success('Old Password Confirmed');
+        return true;
+    }else{
+        toast.error('Old Password is Incorrect');
+        return false;
+    } 
+}
+
+export const hanldeUserUpdatePassword = (NewPass) =>{
+    // here will be api call to update password
+    if(NewPass.length >= 6){
+        return true;
+    }else{
+        return false;
+    }
+}
