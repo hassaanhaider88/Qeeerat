@@ -13,6 +13,8 @@ import Settings from './Settings'
 import useUserData from "../store/useUserData";
 import AddNewPost from './AddNewPost'
 import EditProfile from './EditProfile'
+import ChangePass from './ChangePass'
+import ChangeEmail from './ChangeEmail'
 
 const HomeWithLogin = () => {
 const {userData,setUserData} = useUserData();
@@ -36,6 +38,8 @@ useEffect(()=>{
       <Route path='/add-new' element={<AddNewPost/>}/>
       <Route path='/premium' element={<Premium/>}/>
       <Route path='/settings' element={<Settings/>} />
+      <Route path='/change-pass' element={<ChangePass/>} />
+      <Route path='change-email' element={<ChangeEmail/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/sign-up' element={<SignUp/>} />
 

@@ -1,10 +1,10 @@
 import React from "react";
 import './CtmToggle.css'
-const CtmToggle = ({ IsONForNotify, setIsONForNotify }) => {
+const CtmToggle = ({ IsONForNotify, setIsONForNotify,handleNotifyToggle }) => {
   return (
     <div class="switch-wrapper">
       <input
-        onChange={() => setIsONForNotify(!IsONForNotify)}
+        onChange={handleNotifyToggle}
         checked={IsONForNotify}
         value={IsONForNotify}
         type="checkbox"

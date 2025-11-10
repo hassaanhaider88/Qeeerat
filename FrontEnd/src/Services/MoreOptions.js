@@ -1,5 +1,6 @@
 import usePostData from "../Store/usePostData";
 import PostData from "../DummyData/PostData.js";
+import { toast } from "react-toastify";
 
 export const hanldeUserNotInterestInPost=()=>{
     // here will be first getiing post url then make request 
@@ -61,5 +62,15 @@ export const hanldeUserClickToPremium = () =>{
 
 export const handleUserEditProfile = (Name, UserName, Location, Bio,UserSelectProfileImg) =>{
     alert(`Editing Profile with Name: ${Name}, UserName: ${UserName}, Location: ${Location}, Bio: ${Bio}`);
+    return true;
+}
+
+export const handleUserSignOutClick = () =>{
+    toast.success('Successfully Sign Out');
+    return true;
+}
+
+export const handleUserDeleteAcount = () =>{
+     toast.success('Successfully Delete Acount');
     return true;
 }
