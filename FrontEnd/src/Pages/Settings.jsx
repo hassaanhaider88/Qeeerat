@@ -61,13 +61,7 @@ const Settings = () => {
           <BiRightArrow />
         </div>
 
-        <div
-          onClick={() => navigate("/change-email")}
-          className="flex justify-around mt-3 items-center py-5 hover:bg-gray-800 cursor-pointer duration-200 px-3 rounded transition-all"
-        >
-          <button className="">Changle Email</button>
-          <BiRightArrow />
-        </div>
+     
 
         {/* Acount Delete And Sign Out */}
         <div

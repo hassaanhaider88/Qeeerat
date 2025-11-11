@@ -14,7 +14,7 @@ import useUserData from "../store/useUserData";
 import AddNewPost from "./AddNewPost";
 import EditProfile from "./EditProfile";
 import ChangePass from "./ChangePass";
-import ChangeEmail from "./ChangeEmail";
+import ForgotPass from "./ForgotPass";
 
 const HomeWithLogin = () => {
   const { userData, setUserData } = useUserData();
@@ -52,7 +52,7 @@ const HomeWithLogin = () => {
         <Route path="/premium" element={<Premium />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/change-pass" element={<ChangePass />} />
-        <Route path="change-email" element={<ChangeEmail />} />
+        <Route path="/forgot-pas" element={<ForgotPass />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
 
