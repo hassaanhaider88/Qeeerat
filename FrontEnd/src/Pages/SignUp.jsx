@@ -1,21 +1,77 @@
 import { AiOutlineUser } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoCameraReverseOutline } from "react-icons/io5";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { handleUserCreateAccount } from "../Services/MoreOptions";
+import useUserData from "../store/useUserData";
+
+
 export default function SignUp() {
+  var navigate = useNavigate();
+  const {setIsUserLogin} = useUserData()
+  const UserImageRef = useRef(null);
+  const [UName, setUName] = useState("");
+  const [UEmail, setUEmail] = useState("");
+  const [UPass, setUPass] = useState("");
+  const [UProfileImageEvent, setUProfileImageEvent] = useState(null);
+  const [UserImage, setUserImage] = useState(
+    "https://i.pinimg.com/originals/76/f3/f3/76f3f3007969fd3b6db21c744e1ef289.jpg"
+  );
+
+  const hanldeUserUplaodImage = (e) => {
+    setUProfileImageEvent(e.target.files[0]);
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    console.log(reader);
+    reader.onloadend = () => {
+      setUserImage(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      setUserImage(null);
+    }
+  };
+  const handleUserFormSubmit = (e) => {
+    e.preventDefault();
+    if (UPass.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+    if (!UProfileImageEvent) {
+      toast.error("Please select a profile image");
+      return;
+    }
+    // Add your form submission logic here
+    toast.success("Form submitted");
+    var Res = handleUserCreateAccount(UName, UEmail, UProfileImageEvent, UPass);
+    if (Res) {
+      toast.success("Account Created Successfully");
+      setIsUserLogin(true)
+      navigate("/");
+      // window.location.href = '/'
+    } else {
+      toast.error("Error in Creating Account");
+    }
+  };
   return (
-    <div className="flex h-[700px] bg-black text-white w-full">
-      <div className="w-full hidden md:inline-block">
+    <div className="flex min-h-screen justify-center items-start bg-black text-white w-full">
+      <div className="w-full h-[150vh] hidden md:inline-block">
         <img
-          className="h-full"
-          src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/leftSideImage.png"
+          className="h-full w-full object-cover"
+          src="https://i.pinimg.com/originals/a6/9b/72/a69b72f5366387c87320bef3762ade07.jpg"
           alt="leftSideImage"
         />
       </div>
 
-      <div className="w-full flex flex-col items-center justify-center">
-        <form className="md:w-96  w-80 flex flex-col items-center justify-center">
+      <div className="w-full  mt-5 flex flex-col items-center justify-center">
+        <form
+          onSubmit={(e) => handleUserFormSubmit(e)}
+          className="md:w-96  w-80 flex flex-col items-center justify-center"
+        >
           <h2 className="text-4xl text-gray-200 font-medium">Sign Up</h2>
           <p className="text-sm text-gray-400/90 mt-3">
             Create Your Acount To Countinue
@@ -32,18 +88,27 @@ export default function SignUp() {
           </button>
 
           <div className="flex items-center gap-4 w-full my-5">
-            <div className="w-full h-px bg-gray-300/90"></div>
+            <div className="w-full  h-px bg-gray-300/90"></div>
             <p className="w-full text-nowrap text-sm text-gray-500/90">
               or sign Up with email
             </p>
             <div className="w-full h-px bg-gray-300/90"></div>
           </div>
           {/* User profile  */}
-          <div className="EditImage flex justify-center items-center relative h-fit cursor-pointer group  overflow-hidden">
+          <div
+            onClick={() => UserImageRef.current.click()}
+            className="EditImage flex justify-center items-center relative h-fit cursor-pointer group  overflow-hidden"
+          >
             <img
-              className="w-20  h-20 rounded-full"
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/profile/sampleProfile.jpg"
+              className="w-20 object-cover h-20 rounded-full"
+              src={UserImage}
               alt=""
+            />
+            <input
+              onChange={(e) => hanldeUserUplaodImage(e)}
+              type="file"
+              hidden
+              ref={UserImageRef}
             />
             <div
               //    onClick={() => GetFileExploreOpenRef.current.click()}
@@ -52,13 +117,6 @@ export default function SignUp() {
               <div className="Text">
                 <IoCameraReverseOutline size={"40"} />
               </div>
-              <input
-                type="file"
-                hidden
-                //  onChange={(e) => hanleUserProfileChange(e)}
-                //  ref={GetFileExploreOpenRef}
-                id=""
-              />
             </div>
           </div>
 
@@ -67,6 +125,8 @@ export default function SignUp() {
             <AiOutlineUser size={20} color="#6B7280" />
             <input
               type="text"
+              onChange={(e) => setUName(e.target.value)}
+              value={UName}
               placeholder="Full Name"
               className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
               required
@@ -77,6 +137,8 @@ export default function SignUp() {
             <AiOutlineMail size={20} color="#6B7280" />
             <input
               type="email"
+              onChange={(e) => setUEmail(e.target.value)}
+              value={UEmail}
               placeholder="Email id"
               className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
               required
@@ -87,6 +149,8 @@ export default function SignUp() {
             <BiLockAlt size={20} color="#6B7280" />
             <input
               type="password"
+              onChange={(e) => setUPass(e.target.value)}
+              value={UPass}
               placeholder="Password"
               className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
               required
@@ -94,30 +158,22 @@ export default function SignUp() {
           </div>
 
           <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
-            <div className="flex items-center gap-2">
-              <input className="h-5" type="checkbox" id="checkbox" />
-              <label className="text-sm" htmlFor="checkbox">
-                Remember me
-              </label>
-            </div>
-            <Link to="/forgot-pas" className="text-sm underline" href="">
-              Forgot password?
-            </Link>
+            <label class="flex gap-3 items-center cursor-pointer">
+              <input type="checkbox" class="hidden peer" />
+              <span class="w-5 h-5 border border-slate-300 rounded relative flex items-center justify-center peer-checked:after:content-[''] peer-checked:after:w-2.5 peer-checked:after:h-2.5 peer-checked:after:bg-[#88358F] peer-checked:border-[#88358F] peer-checked:after:rounded peer-checked:after:absolute"></span>
+              <span class="text-gray-700 select-none">Remember me</span>
+            </label>
           </div>
 
           <button
             type="submit"
-            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
+            className="mt-8 w-full hover:scale-95 active:opacity-0 duration-300 h-11 rounded-full text-white bg-[#88358F] hover:opacity-90 transition-all "
           >
-            Login
+            Create Account
           </button>
           <p className="text-gray-500/90 text-sm mt-4">
-            Have an account?{" "}
-            <Link
-              to="/login"
-              className="text-indigo-400 hover:underline"
-              href="#"
-            >
+            Have an account?
+            <Link to="/login" className="text-indigo-400 ml-1 hover:underline">
               Login
             </Link>
           </p>

@@ -17,7 +17,8 @@ import ChangePass from "./ChangePass";
 import ForgotPass from "./ForgotPass";
 
 const HomeWithLogin = () => {
-  const { userData, setUserData } = useUserData();
+  const { userData, setUserData,IsUserLogin } = useUserData();
+  console.log(IsUserLogin)
   const [IsShowSideBar, setIsShowSideBar] = useState(true);
   const Location = useLocation();
   console.log(Location.pathname);
@@ -28,10 +29,7 @@ const HomeWithLogin = () => {
       setIsShowSideBar(true);
     }
   }, [Location.pathname]);
-  useEffect(() => {
-    var StoreUser = JSON.parse(localStorage.getItem("QeeeratUserData"));
-    console.log(StoreUser);
-  }, []);
+
 
   return (
     <div className="w-full min-h-screen flex">
