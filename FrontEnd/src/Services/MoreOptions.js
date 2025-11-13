@@ -152,3 +152,8 @@ export const handleUserRequestToResetPas=()=>{
   toast.success('Request Sent Successfully')
   return true;
 }
+
+export const hanldeUserConfirmEmailOTP= (otp)=>{
+  // here will be api call to confirm otp
+  return true;
+}

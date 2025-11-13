@@ -1,42 +1,59 @@
-// Utility function to store a key in localStorage with a timer (in minutes)
+export default function LocalStorageWithTimer(key, value, minutes) {
+  // --- If only key is provided → Getter mode ---
+  if (value === undefined || minutes === undefined) {
+    const itemStr = localStorage.getItem(key);
+    if (!itemStr) return { success: false, remainingTime: 0 };
 
-export function LocalStorageWithTimer(key, value, minutes) {
-  // Convert minutes → milliseconds
-  const ttl = minutes * 60 * 1000;
+    try {
+      const item = JSON.parse(itemStr);
+      const now = Date.now();
+      const remaining = item.expiry - now;
 
-  // Store value with expiry timestamp
-  const now = new Date();
-  const item = {
-    value,
-    expiry: now.getTime() + ttl,
-  };
-  localStorage.setItem(key, JSON.stringify(item));
+      if (remaining <= 0) {
+        localStorage.removeItem(key);
+        return { success: false, remainingTime: 0 };
+      }
 
-  // Set a timeout to auto-remove it after expiry
-  setTimeout(() => {
-    const storedItem = localStorage.getItem(key);
-    if (!storedItem) return;
-
-    const parsed = JSON.parse(storedItem);
-    if (new Date().getTime() >= parsed.expiry) {
+      return { success: true, remainingTime: remaining, value: item.value };
+    } catch (err) {
+      console.error("Invalid JSON in localStorage for key:", key);
       localStorage.removeItem(key);
-      console.log(`🕒 ${key} removed after ${minutes} minute(s)`);
+      return { success: false, remainingTime: 0 };
     }
-  }, ttl);
-}
-
-// Optional helper: read data safely (it auto-clears if expired)
-export function GetLocalStorageWithTimer(key) {
-  const itemStr = localStorage.getItem(key);
-  if (!itemStr) return null;
-
-  const item = JSON.parse(itemStr);
-  const now = new Date();
-
-  if (now.getTime() > item.expiry) {
-    localStorage.removeItem(key);
-    return null;
   }
 
-  return item.value;
+  // --- If key, value, and minutes are provided → Setter mode ---
+  const ttl = minutes * 60 * 1000; // Convert minutes to ms
+  const now = Date.now();
+
+  const item = {
+    value,
+    expiry: now + ttl,
+  };
+
+  try {
+    localStorage.setItem(key, JSON.stringify(item));
+  } catch (err) {
+    console.error("localStorage write failed:", err);
+    return { success: false, remainingTime: 0 };
+  }
+
+  // Auto-remove item after expiry (only works while tab is open)
+  setTimeout(() => {
+    const data = localStorage.getItem(key);
+    if (!data) return;
+
+    try {
+      const parsed = JSON.parse(data);
+      if (Date.now() >= parsed.expiry) {
+        localStorage.removeItem(key);
+        console.log(`🕒 ${key} expired and removed`);
+      }
+    } catch (err) {
+      localStorage.removeItem(key);
+    }
+  }, ttl);
+
+  // Return initial success immediately
+  return { success: true, remainingTime: ttl };
 }
