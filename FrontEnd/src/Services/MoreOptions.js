@@ -31,7 +31,16 @@ export const hanldeReportPostClick = () => {
 
 export const handleUserVidoeLikeClick = () => {
   alert("handleUserVidoeClick will be included");
+  return true;
 };
+
+export const hanldeUserVideoDownload =(ReelData)=>{
+ toast.success('Successfully Download')
+}
+
+export const hanldeUserVideoShare = (ReelData) =>{
+  toast.success('Successfully Shared')
+}
 
 export const hanldeUserVideoSaveClick = () => {
   alert("VideoSave click");

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
 import { BsBasket } from 'react-icons/bs';
 import SinlgeVidoeCard from '../Components/SinlgeVidoeCard';
+import SearchPostsInHome from '../Components/SearchPostsInHome';
 
 const Explore = () => {
  const [SearchSomething,setSearchSomething] = useState('');
@@ -15,13 +16,14 @@ const Explore = () => {
  }
   return (
     <div className='w-full px-5 md:px-10 min-h-screen bg-black text-white'>
-      <div className="UserSearchForVideos mt-5">
+      {/* <div className="UserSearchForVideos mt-5">
         <div className="flex items-center justify-center  w-[70%] relative left-1/2 -translate-x-1/2 py-2 px-3 rounded-3xl bg-gray-800">
           <BiSearch size={'30px'}/>
           <input required value={SearchSomething} onChange={(e)=>setSearchSomething(e.target.value)} className='outline-none text-gray-200 py-2 w-full pl-4' type="text " placeholder='Search for......' />
           <button onClick={handleUserSearch} className='py-2 bg-[#da55e69f] px-4  rounded-3xl cursor-pointer duration-300 transition-all hover:scale-105'>Search</button>
         </div>
-      </div>
+      </div> */}
+      <SearchPostsInHome/>
       {/* all videos and searched video will be shown */}
       {
         ShowSearchResult !== true && <div className='w-full gap-5 h-full flex flex-col justify-center items-center'>

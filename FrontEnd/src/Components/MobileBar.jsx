@@ -49,7 +49,7 @@ const MobileBar = () => {
      setSelectOpt(Location.pathname)
  },[Location.pathname])
   return (
-    <div  className='sm:hidden px-5 z-30 flex justify-evenly  fixed w-[95%] py-3 rounded-4xl bg-black bottom-5 -translate-x-1/2 left-1/2'>
+    <div  className='sm:hidden px-5 z-30 flex justify-evenly  fixed w-[95%] py-3 rounded-4xl bg-black bottom-2 -translate-x-1/2 left-1/2'>
       {
         SidebarOptions.map((option,idx)=>{
             return <Link title={option.Name} key={idx} to={option.redirectTo} className={` ${SelectOtp === option.redirectTo ? "bg-[#DA55E6]" : ""} ssm:w-12 w-8 h-8 text-white ssm:h-12 flex justify-center items-center  rounded-4xl ssm:text-2xl text-lg cursor-pointer hover:bg-[#DA55E6] duration-300 transition-all`}>
