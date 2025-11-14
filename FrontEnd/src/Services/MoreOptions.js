@@ -1,6 +1,7 @@
 import usePostData from "../Store/usePostData";
 import PostData from "../DummyData/PostData.js";
 import { toast } from "react-toastify";
+import User from "../DummyData/User.js";
 
 
 export const hanldeUserNotInterestInPost = () => {
@@ -165,4 +166,18 @@ export const handleUserRequestToResetPas=()=>{
 export const hanldeUserConfirmEmailOTP= (otp)=>{
   // here will be api call to confirm otp
   return true;
+}
+
+export const handleUserGettingSingleVidoe =(videoID)=>{
+  // here real api will be fetch letar inshallah
+  return {
+    _id : "11vbty36bkjfd",
+    videoUrl:
+      "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1763134284/user_videos/video_1763134283455_Hassaa_haider.mp4",
+    videoLikes: 20090,
+    SurahName: "Al-Mu’minoon",
+    AyatFrom: 84,
+    AyatTo: 87,
+    videoCreated: User,
+  }
 }

@@ -21,6 +21,7 @@ const HomeFeed = () => {
     setShowReelIndex(0);
   }, []);
 
+
   return (
     <div className=" min-h-screen w-full text-white bg-black">
       {/* Here the real feed and post goes */}

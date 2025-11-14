@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BiPlay, BiPause } from "react-icons/bi";
 
-const CustomVideoTag = ({ srcUrl}) => {
+const CustomVideoTag = ({ srcUrl , ShowReelID,IDX}) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -85,13 +85,34 @@ const CustomVideoTag = ({ srcUrl}) => {
     };
   }, []);
 
+    useEffect(() => {
+  const video = videoRef.current;
+
+  if (!video) return;
+
+  // When this reel is active → autoplay
+  if (IDX === ShowReelID) {
+    video.play();
+    setIsPlaying(true);
+    startProgressLoop();
+
+  } else {
+    // When this reel unmounts / goes off-screen → pause
+    video.pause();
+    setIsPlaying(false);
+    stopProgressLoop()
+  }
+}, [ShowReelID, IDX]);
+
+
+
   return (
-    <div className="relative w-[250px] h-[400px] bg-black overflow-hidden rounded-xl group select-none">
+    <div className="relative w-full h-full bg-black overflow-hidden rounded-xl group select-none">
       {/* Video */}
       <video
         ref={videoRef}
         src={srcUrl}
-
+        // onClick={()=>hanldeVideoClick(videoRef)}
         onClick={togglePlayPause}
         className="w-full h-full object-cover cursor-pointer"
         playsInline
@@ -100,6 +121,7 @@ const CustomVideoTag = ({ srcUrl}) => {
 
       {/* Play/Pause Overlay */}
       <div
+        // onClick={()=>hanldeVideoClick(videoRef)}
         onClick={togglePlayPause}
         className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
           isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"

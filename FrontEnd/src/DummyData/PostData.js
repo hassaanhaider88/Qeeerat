@@ -2,6 +2,7 @@ import User from "./User.js";
 
 const PostData = [
   {
+    _id : "1vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 20090,
@@ -11,6 +12,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "2vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 35000,
@@ -20,6 +22,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "3vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 180,
@@ -29,6 +32,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "4vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 410,
@@ -38,6 +42,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "5vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 270,
@@ -47,6 +52,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "6vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 320,
@@ -56,6 +62,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "7vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 150,
@@ -65,6 +72,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "8vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 390,
@@ -74,6 +82,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "9vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 500,
@@ -83,6 +92,7 @@ const PostData = [
     videoCreated: User,
   },
   {
+    _id : "10vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1761706019/user_videos/video_1761706018501_SuratMohmenoon_Ayat_84_to_87.mp4",
     videoLikes: 280,

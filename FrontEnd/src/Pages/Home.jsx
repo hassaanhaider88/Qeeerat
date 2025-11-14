@@ -15,13 +15,12 @@ import AddNewPost from "./AddNewPost";
 import EditProfile from "./EditProfile";
 import ChangePass from "./ChangePass";
 import ForgotPass from "./ForgotPass";
+import SinlgeVideo from "./SinlgeVideo";
 
 const HomeWithLogin = () => {
   const { userData, setUserData,IsUserLogin } = useUserData();
-  console.log(IsUserLogin)
   const [IsShowSideBar, setIsShowSideBar] = useState(true);
   const Location = useLocation();
-  console.log(Location.pathname);
   useEffect(() => {
     if (Location.pathname == "/sign-up" || Location.pathname == "/login") {
       setIsShowSideBar(false);
@@ -51,6 +50,7 @@ const HomeWithLogin = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/change-pass" element={<ChangePass />} />
         <Route path="/forgot-pas" element={<ForgotPass />} />
+        <Route path="/single-video" element={<SinlgeVideo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
 
