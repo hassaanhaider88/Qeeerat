@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BiPlay, BiPause } from "react-icons/bi";
 
-const CustomVideoTag = ({ srcUrl , ShowReelID,IDX}) => {
+const CustomVideoTag = ({ srcUrl, ShowReelIndex, IDX }) => {
+    console.log(typeof IDX, typeof ShowReelIndex);
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -35,7 +36,6 @@ const CustomVideoTag = ({ srcUrl , ShowReelID,IDX}) => {
   const togglePlayPause = () => {
     const video = videoRef.current;
     if (!video) return;
-
     if (video.paused) {
       video.play();
       setIsPlaying(true);
@@ -46,6 +46,8 @@ const CustomVideoTag = ({ srcUrl , ShowReelID,IDX}) => {
       stopProgressLoop();
     }
   };
+
+
 
   // Seek when user drags the range input
   const handleSeek = (e) => {
@@ -85,26 +87,26 @@ const CustomVideoTag = ({ srcUrl , ShowReelID,IDX}) => {
     };
   }, []);
 
-    useEffect(() => {
-  const video = videoRef.current;
+  useEffect(() => {
+    const video = videoRef.current;
 
-  if (!video) return;
+    if (!video) return;
 
-  // When this reel is active → autoplay
-  if (IDX === ShowReelID) {
-    video.play();
-    setIsPlaying(true);
-    startProgressLoop();
+    // When this reel is active → autoplay
+    if (IDX === ShowReelIndex) {
+      console.log('yes they are same')
+      video.play();
+      setIsPlaying(true);
+      startProgressLoop();
+    } else {
+      // When this reel unmounts / goes off-screen → pause
+      video.pause();
+      console.log('No they r not same')
 
-  } else {
-    // When this reel unmounts / goes off-screen → pause
-    video.pause();
-    setIsPlaying(false);
-    stopProgressLoop()
-  }
-}, [ShowReelID, IDX]);
-
-
+      setIsPlaying(false);
+      stopProgressLoop();
+    }
+  }, [ShowReelIndex, IDX]);
 
   return (
     <div className="relative w-full h-full bg-black overflow-hidden rounded-xl group select-none">
@@ -162,7 +164,9 @@ const CustomVideoTag = ({ srcUrl , ShowReelID,IDX}) => {
           onChange={handleSeek}
           className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
         />
-        <div className="relative bottom-[380px] left-2 ">{Math.floor(currentTime)}s</div>
+        <div className="relative bottom-[380px] left-2 ">
+          {Math.floor(currentTime)}s
+        </div>
       </div>
     </div>
   );

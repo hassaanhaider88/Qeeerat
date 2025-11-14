@@ -60,7 +60,7 @@ const ReelVideo = ({ ReelData, IDX }) => {
       } relative  items-center justify-center h-screen p-4`}
     >
       {/* Arrows goes here  */}
-      <div className="ssm:flex hidden flex-col gap-3 Arrows absolute right-5 top-1/2 -translate-y-1/2">
+      <div className="flex z-100 flex-col gap-3 Arrows absolute right-5 top-1/2 -translate-y-1/2">
         {IDX === 0 ? (
           ""
         ) : (
@@ -87,7 +87,6 @@ const ReelVideo = ({ ReelData, IDX }) => {
             ShowReelIndex={ShowReelIndex}
             IDX={IDX}
           />
-         
 
           {/* Video Content & User Info (Bottom Left) */}
           <div className="absolute bottom-0 left-0 p-4 w-full bg-gradient-to from-black/60 to-transparent z-10">
