@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { BiPlay, BiPause } from "react-icons/bi";
 
 const CustomVideoTag = ({ srcUrl, ShowReelIndex, IDX }) => {
-    console.log(typeof IDX, typeof ShowReelIndex);
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);

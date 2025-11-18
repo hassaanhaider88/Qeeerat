@@ -37,7 +37,7 @@ const Login = () => {
         />
       </div>
       <div className="w-1/2 h-full  flex justify-center items-center">
-        <div className="bg-[#000000e5] shadow-xl shadow-[#88358f] text-gray-500 max-w-96 mx-4 md:p-6 p-4 text-left text-sm rounded-xl">
+        <div className="bg-[#000000e5] shadow-xl shadow-[#88358f] text-gray-500  mx-4 md:p-6 p-4 text-left text-sm rounded-xl">
           <h2 className="text-2xl font-semibold mb-6 text-center text-gray-400">
             Welcome Back
           </h2>
@@ -46,14 +46,14 @@ const Login = () => {
             className="px-3  w-[400px] flex flex-col items-center justify-center"
           >
             {/* User Name  */}
-            <span className="flex items-center mt-6 mb-6 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
+            <span className="flex items-center mt-6 mb-6 w-full px-4 bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
               <AiOutlineMail size={20} color="#6B7280" />
               <input
                 type="email"
                 onChange={(e) => setUEmail(e.target.value)}
                 value={UEmail}
                 placeholder="Emial Address"
-                className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
+                className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm"
                 required
               />
             </span>
@@ -66,7 +66,7 @@ const Login = () => {
                 onChange={(e) => setUPass(e.target.value)}
                 value={UPass}
                 placeholder="Password"
-                className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
+                className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm "
                 required
               />
             </span>
@@ -74,7 +74,6 @@ const Login = () => {
               <Link
                 to="/forgot-pass"
                 className="text-blue-600 underline"
-                href="#"
               >
                 Forgot Password
               </Link>
