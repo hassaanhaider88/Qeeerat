@@ -9,6 +9,7 @@ import usePostData from "../Store/usePostData.jsx";
 import { handleFetchMorePosts } from "../Services/MoreOptions.js";
 import ReelVideo from "../Components/ReelVideo.jsx";
 import { useGlobalState } from "@hmk_codeweb88/useglobalstate";
+import HomeReels from "./HomeReels.jsx";
 
 const HomeFeed = () => {
   const { postData, setPostData } = usePostData();
@@ -25,12 +26,13 @@ const HomeFeed = () => {
   return (
     <div className=" min-h-screen w-full text-white bg-black">
       {/* Here the real feed and post goes */}
-      <div className="px-3 md:px-10 flex flex-col gap-4">
+      <HomeReels/>
+      {/* <div className="px-3 md:px-10 flex flex-col gap-4">
         
         {postData.map((post, idx) => {
           return <ReelVideo ReelData={post} key={idx} IDX={idx} />;
         })}
-      </div>
+      </div> */}
     </div>
   );
 };

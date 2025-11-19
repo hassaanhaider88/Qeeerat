@@ -46,8 +46,6 @@ const CustomVideoTag = ({ srcUrl, ShowReelIndex, IDX }) => {
     }
   };
 
-
-
   // Seek when user drags the range input
   const handleSeek = (e) => {
     const value = e.target.value;
@@ -91,24 +89,19 @@ const CustomVideoTag = ({ srcUrl, ShowReelIndex, IDX }) => {
 
     if (!video) return;
 
-    // When this reel is active → autoplay
     if (IDX === ShowReelIndex) {
-      console.log('yes they are same')
       video.play();
       setIsPlaying(true);
       startProgressLoop();
     } else {
-      // When this reel unmounts / goes off-screen → pause
       video.pause();
-      console.log('No they r not same')
-
       setIsPlaying(false);
       stopProgressLoop();
     }
   }, [ShowReelIndex, IDX]);
 
   return (
-    <div className="relative w-full h-full bg-black overflow-hidden rounded-xl group select-none">
+    <div className="relative sm:w-[400px] w-[250px] ssm:w-[300px] my-4 h-[80vh] md:h-screen bg-black overflow-hidden rounded-xl group select-none">
       {/* Video */}
       <video
         ref={videoRef}
