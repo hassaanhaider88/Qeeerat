@@ -8,12 +8,39 @@ import { countryToFlag } from "../Services/FlagAbbrivation";
 import timeAgo from "../Services/TimeAgo";
 import UserProfilePost from "../Components/UserProfilePost";
 import ReduceNumber from "../Services/ReduceNumber";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  handleUserCheck,
+  handleUserFollowClick,
+} from "../Services/MoreOptions";
 
 const Profile = () => {
   const [IsVarifed, setIsVarifed] = useState(false);
   const [Loading, setLoading] = useState(false);
+  const [IsFollowed, setIsFollowed] = useState(false);
+  const [IsSameUserViewingProfile, setIsSameUserViewingProfile] =
+    useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const UserId = searchParams.get("UserId");
+  const handleFollowClick = () => {
+    var Res = handleUserFollowClick();
+    if (Res) {
+      setIsFollowed(true);
+    } else {
+      setIsFollowed(false);
+    }
+  };
+  useEffect(() => {
+    // check for user same which is loged in
+    // here also data will be updated
+    var Res = handleUserCheck(UserId,IsFollowed,setIsFollowed);
+    if (Res) {
+      setIsSameUserViewingProfile(true);
+    } else {
+      setIsSameUserViewingProfile(false);
+    }
+  }, []);
   const [ActiveTab, setActiveTab] = useGlobalState("ActiveTab", "Posts", {
     persist: true,
   });
@@ -45,12 +72,14 @@ const Profile = () => {
             alt=""
           />
         </div>
-        <div
-          onClick={() => navigate("/edit-profile")}
-          className="absolute bottom-12 right-5"
-        >
-          <CtmButton Text="Edit" />
-        </div>
+        {IsSameUserViewingProfile && (
+          <div
+            onClick={() => navigate("/edit-profile")}
+            className="absolute bottom-12 right-5"
+          >
+            <CtmButton Text="Edit" />
+          </div>
+        )}
       </div>
       <div className="UserInfoLikeNameEtc px-5 md:px-10 py-10">
         <h1
@@ -66,8 +95,18 @@ const Profile = () => {
               size={"23"}
             />
           ) : (
+            ""
+          )}
+          {IsSameUserViewingProfile ? (
             <button className="py-1 mt-1.5 px-3 rounded-full cursor-pointer hover:scale-95 duration-300 transition-all active:outline-1 outline-[#813288] hover:border-[#813288] hover:text-[#813288] border border-gray-200 text-sm">
               Get Varified
+            </button>
+          ) : (
+            <button
+              onClick={() => handleFollowClick()}
+              className="py-1 mt-1.5 px-3 rounded-full cursor-pointer hover:scale-95 duration-300 transition-all active:outline-1 outline-[#813288] hover:border-[#813288] hover:text-[#813288] border border-gray-200 text-sm"
+            >
+              {IsFollowed ? "Followed" : "Follow"}
             </button>
           )}
         </h1>

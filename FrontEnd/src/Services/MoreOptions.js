@@ -3,7 +3,6 @@ import PostData from "../DummyData/PostData.js";
 import { toast } from "react-toastify";
 import User from "../DummyData/User.js";
 
-
 export const hanldeUserNotInterestInPost = () => {
   // here will be first getiing post url then make request
   alert("hanldeUserNotInterestInPost will be included");
@@ -32,17 +31,17 @@ export const hanldeReportPostClick = () => {
 
 export const handleUserVidoeLikeClick = (videoData) => {
   toast.success("handleUserVidoeClick will be included");
-  console.log(videoData)
+  console.log(videoData);
   return true;
 };
 
-export const hanldeUserVideoDownload =(ReelData)=>{
- return true;
-}
-
-export const hanldeUserVideoShare = (ReelData) =>{
+export const hanldeUserVideoDownload = (ReelData) => {
   return true;
-}
+};
+
+export const hanldeUserVideoShare = (ReelData) => {
+  return true;
+};
 
 export const hanldeUserVideoSaveClick = () => {
   alert("VideoSave click");
@@ -151,28 +150,27 @@ export const hanldeUserLogin = (UEmail, UPass) => {
   localStorage.setItem(
     "QeeeratUserData",
     JSON.stringify({
-      _id : "1234567890sdfjka56asd",
+      _id: "1234567890sdfjka56asd",
     })
   );
   return true;
 };
 
-
-export const handleUserRequestToResetPas=()=>{
-  // here will real request gone 
-  toast.success('Request Sent Successfully')
+export const handleUserRequestToResetPas = () => {
+  // here will real request gone
+  toast.success("Request Sent Successfully");
   return true;
-}
+};
 
-export const hanldeUserConfirmEmailOTP= (otp)=>{
+export const hanldeUserConfirmEmailOTP = (otp) => {
   // here will be api call to confirm otp
   return true;
-}
+};
 
-export const handleUserGettingSingleVidoe =(videoID)=>{
+export const handleUserGettingSingleVidoe = (videoID) => {
   // here real api will be fetch letar inshallah
   return {
-    _id : "11vbty36bkjfd",
+    _id: "11vbty36bkjfd",
     videoUrl:
       "https://res.cloudinary.com/dcrkdgbd9/video/upload/v1763134284/user_videos/video_1763134283455_Hassaa_haider.mp4",
     videoLikes: 20090,
@@ -180,5 +178,27 @@ export const handleUserGettingSingleVidoe =(videoID)=>{
     AyatFrom: 84,
     AyatTo: 87,
     videoCreated: User,
+  };
+};
+
+export const handleCheckIsVideoInLikedList = (videoID) => {
+  return true;
+};
+export const handleUserCheck = (UserId) => {
+  var GetIdForLS = JSON.parse(localStorage.getItem("QeeeratUserData"));
+  if (String(GetIdForLS._id) === String(UserId)) {
+    return true;
+  } else {
+    return false;
   }
-}
+};
+
+export const handleUserFollowClick = (userId) => {
+  return true;
+  // var GetIdForLS = JSON.parse(localStorage.getItem("QeeeratUserData"));
+  // if (String(GetIdForLS) === String(userId)) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+};

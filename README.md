@@ -1,6 +1,6 @@
-# Qeeerat — Short Quranic Verse Clips App
+# QiratApp — Short Quranic Verse Clips App
 
-**Qeeerat** is a lightweight app for discovering short Quranic verse clips (30s–1m) with translations — perfect for sharing as WhatsApp or Instagram status videos.
+**QiratApp** is a lightweight app for discovering short Quranic verse clips (30s–1m) with translations — perfect for sharing as WhatsApp or Instagram status videos.
 The **frontend** is built with **React + Vite**, and the **backend** is a minimal **Express.js** helper for data fetching and future expansion.
 
 ---
@@ -18,7 +18,7 @@ The **frontend** is built with **React + Vite**, and the **backend** is a minima
 ## 🧱 Project Structure
 
 ```
-Qeeerat/
+QiratApp/
 │
 ├── FrontEnd/
 │   ├── src/
@@ -47,7 +47,7 @@ Qeeerat/
 
 ```bash
 git clone <repo-url>
-cd Qeeerat
+cd QiratApp
 ```
 
 ### 2. Setup Frontend

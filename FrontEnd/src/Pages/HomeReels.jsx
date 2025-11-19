@@ -1,9 +1,10 @@
+import { BiUpArrow } from "react-icons/bi";
+import { BiDownArrow } from "react-icons/bi";
 import { MdOutlineScreenShare } from "react-icons/md";
-import { BsDownload } from "react-icons/bs";
+
 import { BsCloudArrowDown } from "react-icons/bs";
-import { BsBoxArrowInDown } from "react-icons/bs";
+
 import { AiFillLike } from "react-icons/ai";
-import { AiTwotoneLike } from "react-icons/ai";
 import { useState, useEffect, useRef } from "react";
 import CustomVideoTag from "../Components/CustomVideoTag";
 import ReduceNumber from "../Services/ReduceNumber";
@@ -11,13 +12,16 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { BiLike } from "react-icons/bi";
 import PostData from "../DummyData/PostData";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import {
+  handleCheckIsVideoInLikedList,
   handleUserVidoeLikeClick,
   hanldeUserVideoDownload,
   hanldeUserVideoShare,
 } from "../Services/MoreOptions";
 
 const HomeReels = () => {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [IsVideoLiked, setIsVideoLiked] = useState(false);
@@ -52,7 +56,20 @@ const HomeReels = () => {
       toast.error("Something Went Wrong");
     }
   };
+
+  const handleUserProfileClick = (videoData) => {
+    navigate(`/profile?UserId=${videoData._id}`);
+  };
   // Navigate to next video
+  useEffect(() => {
+    // here will check eithter the video is liked or not
+    var Res = handleCheckIsVideoInLikedList(PostData[currentIndex]);
+    if (Res) {
+      setIsVideoLiked(false);
+    } else {
+      setIsVideoLiked(true);
+    }
+  }, [currentIndex]);
   const goToNext = () => {
     if (isTransitioning) return;
     if (currentIndex < PostData.length - 1) {
@@ -163,7 +180,10 @@ const HomeReels = () => {
 
               {/* Video Info - Bottom Left */}
               <div className="absolute md:bottom-0 bottom-15 left-0 p-6 pb-5 max-w-md z-10">
-                <div className="flex items-center mb-2">
+                <div
+                  onClick={() => handleUserProfileClick(video.videoCreated)}
+                  className="flex items-center mb-2"
+                >
                   <img
                     src={video?.videoCreated.ImageUrl}
                     alt={video?.videoCreated.UserName}
@@ -244,19 +264,7 @@ const HomeReels = () => {
           disabled={currentIndex === 0}
           className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center transition-all hover:bg-white/30 active:scale-90 disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          <svg
-            className="w-6 h-6 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2.5}
-              d="M5 15l7-7 7 7"
-            />
-          </svg>
+          <BiUpArrow size={25} />
         </button>
 
         {/* Down Arrow */}
@@ -265,19 +273,7 @@ const HomeReels = () => {
           disabled={currentIndex === PostData.length - 1}
           className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center transition-all hover:bg-white/30 active:scale-90 disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          <svg
-            className="w-6 h-6 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2.5}
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
+          <BiDownArrow size={25} />
         </button>
       </div>
 
