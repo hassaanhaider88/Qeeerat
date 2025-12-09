@@ -1,5 +1,5 @@
 var User = {
- _id : "3456fbgh4t5y6fghr456gbh",
+  _id: "3456fbgh4t5y6fghr456gbh",
   Name: "Hassaan",
   UserName: "hassaanhmk",
   Email: "hassaan@gmail.com",

@@ -7,12 +7,22 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { handleUserCreateAccount } from "../Services/MoreOptions";
 import useUserData from "../store/useUserData";
-
+import { handleUserGoogleLoginORSingUp } from "../utils/googleLogin";
+import { GoogleLogin } from "@react-oauth/google";
+import BACKEND_URI from "../utils/BackEndURI";
 
 export default function SignUp() {
   var navigate = useNavigate();
-  const {setIsUserLogin} = useUserData()
+  const { setIsUserLogin, setUserData, userData } = useUserData();
+  useEffect(() => {
+    if (userData) {
+      navigate("/");
+    } else {
+      return;
+    }
+  }, []);
   const UserImageRef = useRef(null);
+  const GoogleBtnRef = useRef(null);
   const [UName, setUName] = useState("");
   const [UEmail, setUEmail] = useState("");
   const [UPass, setUPass] = useState("");
@@ -21,7 +31,16 @@ export default function SignUp() {
     "https://i.pinimg.com/originals/76/f3/f3/76f3f3007969fd3b6db21c744e1ef289.jpg"
   );
 
-  const hanldeUserUplaodImage = (e) => {
+  const hanldeUserUplaodImage = async (e) => {
+    var Res = await fetch(`${BACKEND_URI}/api/images/upload`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        file: e.target.files[0],
+      }),
+    });
     setUProfileImageEvent(e.target.files[0]);
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -50,13 +69,29 @@ export default function SignUp() {
     var Res = handleUserCreateAccount(UName, UEmail, UProfileImageEvent, UPass);
     if (Res) {
       toast.success("Account Created Successfully");
-      setIsUserLogin(true)
+      setIsUserLogin(true);
       navigate("/");
       // window.location.href = '/'
     } else {
       toast.error("Error in Creating Account");
     }
   };
+
+  const hanldeGoogleLoginClick = async (credentialResponse) => {
+    const Res = await handleUserGoogleLoginORSingUp(credentialResponse);
+
+    console.log(Res);
+    if (Res.success) {
+      toast.success("Google Login/Sign Up Successful");
+      setUserData(Res.UserData);
+      localStorage.setItem("QeeeratUserData", JSON.stringify(Res.UserData));
+      setIsUserLogin(true);
+      navigate("/");
+    } else {
+      toast.error("Google Login/Sign Up Failed");
+    }
+  };
+
   return (
     <div className="flex min-h-screen justify-center items-start bg-black text-white w-full">
       <div className="w-full h-[150vh] hidden md:inline-block">
@@ -78,12 +113,17 @@ export default function SignUp() {
           </p>
 
           <button
-            type="button"
-            className="w-full hover:bg-gray-500/10 duration-200 transition-all cursor-pointer active:scale-90 mt-8 bg-gray-300/10 flex items-center justify-center h-12 rounded-full"
+          className="mt-8 hover:opacity-90 transition-all flex items-center justify-center"
           >
-            <img
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
-              alt="googleLogo"
+            <GoogleLogin
+              text="continue_with"
+              logo_alignment="center"
+              
+              width="320"
+              shape="circle"
+              onSuccess={(credentialResponse) => {
+                hanldeGoogleLoginClick(credentialResponse);
+              }}
             />
           </button>
 

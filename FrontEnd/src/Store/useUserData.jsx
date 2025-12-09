@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { create } from "zustand";
 import User from "../DummyData/User";
+import { sendUserData } from "../utils/googleLogin";
 
 // Zustand store
 const useUserData = create((set) => ({
@@ -11,14 +12,17 @@ const useUserData = create((set) => ({
 }));
 
 // check for user's local storage on app load
-var StoreUser = JSON.parse(localStorage.getItem("QeeeratUserData"));
-const getUserDataFromLocalStorage = () => {
-    if (StoreUser) {
-        // Fetch User data from Back End using StoreUser._id
-        useUserData.getState().setIsUserLogin(true);
-    } else {
-        useUserData.getState().setIsUserLogin(false);
-    }
+
+const getUserDataFromLocalStorage = async () => {
+  const StoreUser = JSON.parse(localStorage.getItem("QeeeratUserData"));
+  if (StoreUser != null) {
+    useUserData.getState().setUserData(StoreUser);
+    useUserData.getState().setIsUserLogin(true);
+    return;
+  } else {
+    useUserData.getState().setIsUserLogin(false);
+    return;
+  }
 };
 
 getUserDataFromLocalStorage();

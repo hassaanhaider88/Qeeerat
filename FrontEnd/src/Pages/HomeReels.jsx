@@ -181,18 +181,18 @@ const HomeReels = () => {
               {/* Video Info - Bottom Left */}
               <div className="absolute md:bottom-0 bottom-15 left-0 p-6 pb-5 max-w-md z-10">
                 <div
-                  onClick={() => handleUserProfileClick(video.videoCreated)}
+                  onClick={() => handleUserProfileClick(video.videoCreatedBy)}
                   className="flex items-center mb-2"
                 >
                   <img
-                    src={video?.videoCreated.ImageUrl}
-                    alt={video?.videoCreated.UserName}
+                    src={video?.videoCreatedBy.picture}
+                    alt={video?.videoCreatedBy.UserName}
                     className="w-12 h-12 rounded-full border-2 border-white object-cover mr-2"
                   />
                   <span className="text-white font-bold mr-2">
-                    @{video?.videoCreated.UserName}
+                    @{video?.videoCreatedBy.UserName}
                   </span>
-                  {video?.videoCreated?.IsVarified && (
+                  {video?.videoCreatedBy?.IsVarified && (
                     <RiVerifiedBadgeFill
                       className="ssm:block hidden"
                       color="#813288"

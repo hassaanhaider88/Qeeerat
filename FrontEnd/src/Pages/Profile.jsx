@@ -13,9 +13,11 @@ import {
   handleUserCheck,
   handleUserFollowClick,
 } from "../Services/MoreOptions";
+import useUserData from "../store/useUserData";
 
 const Profile = () => {
-  const [IsVarifed, setIsVarifed] = useState(false);
+  const { userData } = useUserData();
+  const [IsVarifed, setIsVarifed] = useState(userData?.VerifiedUser);
   const [Loading, setLoading] = useState(false);
   const [IsFollowed, setIsFollowed] = useState(false);
   const [IsSameUserViewingProfile, setIsSameUserViewingProfile] =
@@ -34,7 +36,7 @@ const Profile = () => {
   useEffect(() => {
     // check for user same which is loged in
     // here also data will be updated
-    var Res = handleUserCheck(UserId,IsFollowed,setIsFollowed);
+    var Res = handleUserCheck(UserId, IsFollowed, setIsFollowed);
     if (Res) {
       setIsSameUserViewingProfile(true);
     } else {
@@ -50,9 +52,9 @@ const Profile = () => {
     const time = timeAgo("2005-01-31T13:10:00Z");
     setTimeAgo(time);
   }, []);
-  const [CountryFlagAbbir, setCountryFlagAbbir] = useState("af");
+  const [CountryFlagAbbir, setCountryFlagAbbir] = useState(userData?.Location);
   useEffect(() => {
-    const abbr = countryToFlag("Pakistan");
+    const abbr = countryToFlag(userData?.Location);
     setCountryFlagAbbir(abbr);
   }, []);
 
@@ -68,8 +70,8 @@ const Profile = () => {
         </div>
         <div className="EditProfileDiv absolute bottom-10 left-15 cursor-pointer w-30 h-30 rounded-full overflow-hidden border-4 border-white">
           <img
-            src="https://i.pinimg.com/originals/8e/0c/fa/8e0cfaf58709f7e626973f0b00d033d0.jpg"
-            alt=""
+            src={userData?.picture}
+            alt={userData?.name}
           />
         </div>
         {IsSameUserViewingProfile && (
@@ -87,7 +89,7 @@ const Profile = () => {
             IsVarifed ? "gap-2" : "gap-4"
           }`}
         >
-          Hassaan Haider .Dev
+          {userData?.name}
           {IsVarifed ? (
             <RiVerifiedBadgeFill
               className="ssm:block mt-1.5 hidden"
@@ -110,19 +112,20 @@ const Profile = () => {
             </button>
           )}
         </h1>
-        <p className="text-[#888787]">@hassaanhaider</p>
+        <p className="text-[#888787]">@{userData?.userName}</p>
         <p className=" py-2">
-          React Js | Next Js | MERN Stack | APIs Developer with 2 years of
+          {/* React Js | Next Js | MERN Stack | APIs Developer with 2 years of
           Experience in Development Always looking for Opportunities and ideas
           Implementation.React Js | Next Js | MERN Stack | APIs Developer with 2
           years of Experience in Development Always looking for Opportunities
-          and ideas Implementation.
+          and ideas Implementation. */}
+          {userData?.Bio}
         </p>
         <div className="AdditoionalInfo w-full flex justify-evenly items-center">
-          <p className="text-[#888787]  ">{ReduceNumber(2300)} Followers</p>
-          <p className="text-[#888787]">{ReduceNumber()} Following</p>
+          <p className="text-[#888787]  ">{ReduceNumber(userData?.NumberOfFollower)} Followers</p>
+          <p className="text-[#888787]">{ReduceNumber(userData?.NumberOfFollowing)} Following</p>
           <p className="text-[#888787] flex  gap-2 items-center">
-            <ImLocation /> Pakistan{" "}
+            <ImLocation /> {userData?.Location}
             <span class={`flag-icon flag-icon-${CountryFlagAbbir}`}></span>{" "}
           </p>
           <p className="text-[#888787] flex  gap-2 items-center">

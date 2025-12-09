@@ -9,7 +9,7 @@ const PostData = [
     SurahName: "Al-Mu’minoon",
     AyatFrom: 84,
     AyatTo: 87,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "2vbty36bkjfd",
@@ -19,7 +19,7 @@ const PostData = [
     SurahName: "Al-Fatiha",
     AyatFrom: 1,
     AyatTo: 7,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "3vbty36bkjfd",
@@ -29,7 +29,7 @@ const PostData = [
     SurahName: "Al-Baqarah",
     AyatFrom: 255,
     AyatTo: 257,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "4vbty36bkjfd",
@@ -39,7 +39,7 @@ const PostData = [
     SurahName: "Yaseen",
     AyatFrom: 1,
     AyatTo: 12,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "5vbty36bkjfd",
@@ -49,7 +49,7 @@ const PostData = [
     SurahName: "Ar-Rahman",
     AyatFrom: 1,
     AyatTo: 13,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "6vbty36bkjfd",
@@ -59,7 +59,7 @@ const PostData = [
     SurahName: "Al-Kahf",
     AyatFrom: 9,
     AyatTo: 16,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "7vbty36bkjfd",
@@ -69,7 +69,7 @@ const PostData = [
     SurahName: "Al-Mulk",
     AyatFrom: 1,
     AyatTo: 11,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "8vbty36bkjfd",
@@ -79,7 +79,7 @@ const PostData = [
     SurahName: "Al-Qamar",
     AyatFrom: 17,
     AyatTo: 25,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "9vbty36bkjfd",
@@ -89,7 +89,7 @@ const PostData = [
     SurahName: "Al-Waqiah",
     AyatFrom: 1,
     AyatTo: 10,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
   {
     _id : "10vbty36bkjfd",
@@ -99,7 +99,7 @@ const PostData = [
     SurahName: "Al-Ikhlas",
     AyatFrom: 1,
     AyatTo: 4,
-    videoCreated: User,
+    videoCreatedBy: User,
   },
 ];
 

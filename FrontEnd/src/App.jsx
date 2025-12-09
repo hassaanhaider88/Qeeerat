@@ -13,7 +13,7 @@ const App = () => {
   const [IsLogin, setIsLogin] = useState(IsUserLogin);
   useEffect(() => {
     setIsLogin(IsUserLogin);
-  }, [IsUserLogin,Location.pathname]);
+  }, [IsUserLogin, Location.pathname]);
   return (
     <>
       {IsLogin ? (
@@ -30,4 +30,3 @@ const App = () => {
 };
 
 export default App;
-
