@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-const googleLoginSechma = new mongoose.Schema(
+const User = new mongoose.Schema(
   {
-    goolgeId: { type: String, required: true, unique: true },
+    goolgeId: { type: String },
     name: { type: String, required: true },
     userName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     picture: { type: String },
     password: { type: String },
-    methodOfLogin: { type: String, default: "google" },
+    methodOfLogin: { type: String, default: "google" },// 'google' | 'email'
     NumberOfFollower: { type: Number, default: 0 },
     NumberOfFollowing: { type: Number, default: 0 },
     Bio: { type: String, default: "" },
@@ -18,7 +18,8 @@ const googleLoginSechma = new mongoose.Schema(
     AccountStatus: { type: String, default: "active" }, // 'active' | 'banned' | 'suspended'
     CreatedPost: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Post"    },
+      ref: "Post",
+    },
     SavedPost: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Post",
@@ -27,13 +28,10 @@ const googleLoginSechma = new mongoose.Schema(
     Follower: { type: Array, default: [] },
     Notifications: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Notification"
+      ref: "Notification",
     },
   },
   { timestamps: true }
 );
 
-export const GoogleLoginModal = mongoose.model(
-  "GoogleLogin",
-  googleLoginSechma
-);
+export const UserModal = mongoose.model("User", User);

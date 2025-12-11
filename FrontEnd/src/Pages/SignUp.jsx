@@ -44,7 +44,6 @@ export default function SignUp() {
     setUProfileImageEvent(e.target.files[0]);
     const file = e.target.files[0];
     const reader = new FileReader();
-    console.log(reader);
     reader.onloadend = () => {
       setUserImage(reader.result);
     };
@@ -54,26 +53,28 @@ export default function SignUp() {
       setUserImage(null);
     }
   };
-  const handleUserFormSubmit = (e) => {
+  const handleUserFormSubmit = async (e) => {
     e.preventDefault();
     if (UPass.length < 6) {
       toast.error("Password must be at least 6 characters long");
       return;
     }
-    if (!UProfileImageEvent) {
-      toast.error("Please select a profile image");
-      return;
-    }
-    // Add your form submission logic here
-    toast.success("Form submitted");
-    var Res = handleUserCreateAccount(UName, UEmail, UProfileImageEvent, UPass);
+    var UProfileImageUrl =
+      "https://i.pinimg.com/originals/a6/9b/72/a69b72f5366387c87320bef3762ade07.jpg";
+    var Res = await handleUserCreateAccount(
+      UName,
+      UEmail,
+      UProfileImageUrl,
+      UPass
+    );
     if (Res) {
-      toast.success("Account Created Successfully");
       setIsUserLogin(true);
+      toast.success("Account Created Successfully");
+      setUserData(Res?.UserData);
       navigate("/");
       // window.location.href = '/'
     } else {
-      toast.error("Error in Creating Account");
+      return;
     }
   };
 
@@ -83,12 +84,16 @@ export default function SignUp() {
     console.log(Res);
     if (Res.success) {
       toast.success("Google Login/Sign Up Successful");
-      setUserData(Res.UserData);
-      localStorage.setItem("QeeeratUserData", JSON.stringify(Res.UserData));
+      setUserData(Res.UserData._id);
+      const QiratAppUser = {
+        userId: Res.UserData._id,
+      };
+      localStorage.setItem("QeeeratUserData", JSON.stringify(QiratAppUser));
       setIsUserLogin(true);
       navigate("/");
     } else {
       toast.error("Google Login/Sign Up Failed");
+      return;
     }
   };
 
@@ -112,13 +117,10 @@ export default function SignUp() {
             Create Your Acount To Countinue
           </p>
 
-          <button
-          className="mt-8 hover:opacity-90 transition-all flex items-center justify-center"
-          >
+          <button className="mt-8 hover:opacity-90 transition-all flex items-center justify-center">
             <GoogleLogin
               text="continue_with"
               logo_alignment="center"
-              
               width="320"
               shape="circle"
               onSuccess={(credentialResponse) => {
@@ -135,30 +137,6 @@ export default function SignUp() {
             <div className="w-full h-px bg-gray-300/90"></div>
           </div>
           {/* User profile  */}
-          <div
-            onClick={() => UserImageRef.current.click()}
-            className="EditImage flex justify-center items-center relative h-fit cursor-pointer group  overflow-hidden"
-          >
-            <img
-              className="w-20 object-cover h-20 rounded-full"
-              src={UserImage}
-              alt=""
-            />
-            <input
-              onChange={(e) => hanldeUserUplaodImage(e)}
-              type="file"
-              hidden
-              ref={UserImageRef}
-            />
-            <div
-              //    onClick={() => GetFileExploreOpenRef.current.click()}
-              className="Overlay opacity-0 group-hover:opacity-100 absolute top-0 left-1/2 -translate-x-1/2 rounded-full  w-20 h-20 bg-[#3333337c]  flex flex-col justify-center items-center  duration-300 cursor-pointer"
-            >
-              <div className="Text">
-                <IoCameraReverseOutline size={"40"} />
-              </div>
-            </div>
-          </div>
 
           {/* User Name  */}
           <div className="flex items-center mt-6 mb-6 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
@@ -179,7 +157,7 @@ export default function SignUp() {
               type="email"
               onChange={(e) => setUEmail(e.target.value)}
               value={UEmail}
-              placeholder="Email id"
+              placeholder="Email"
               className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
               required
             />

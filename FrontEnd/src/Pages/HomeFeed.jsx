@@ -4,11 +4,12 @@ import usePostData from "../Store/usePostData.jsx";
 import { handleFetchMorePosts } from "../Services/MoreOptions.js";
 import { useGlobalState } from "@hmk_codeweb88/useglobalstate";
 import HomeReels from "./HomeReels.jsx";
+import useUserData from "../store/useUserData.jsx";
 // import useUserData from "../store/useUserData.jsx";
 
 const HomeFeed = () => {
   const { postData, setPostData } = usePostData();
-  // const { userData } = useUserData();
+  const { userData } = useUserData();
 
   const [ShowReelIndex, setShowReelIndex] = useGlobalState("ShowReelIndex", 0, {
     persist: true,
@@ -18,6 +19,7 @@ const HomeFeed = () => {
     handleFetchMorePosts(setPostData);
     setShowReelIndex(0);
   }, []);
+  console.log(userData)
 
   return (
     <div className=" min-h-screen w-full text-white bg-black">

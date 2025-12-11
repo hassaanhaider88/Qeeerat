@@ -19,6 +19,7 @@
     "image-crop-react": "^1.0.3",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.548.0",
+    "rc-upload": "^4.11.0",
     "react": "^19.1.1",
     "react-advanced-cropper": "^0.20.1",
     "react-background-slideshow": "^1.0.4",

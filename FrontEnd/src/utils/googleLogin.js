@@ -4,10 +4,8 @@ import { Navigate } from "react-router-dom";
 
 export const handleUserGoogleLoginORSingUp = async (credentialResponse) => {
   // here will be the logic for google login or sign up
-  alert("Google Login/Sign Up Clicked");
   const decoded = jwtDecode(credentialResponse.credential);
 
-  console.log("Login Success:", decoded);
   const { email, name, picture, sub } = decoded;
   try {
     const Res = await fetch(`${BACKEND_URI}/api/user/goolgelogin`, {
@@ -23,11 +21,12 @@ export const handleUserGoogleLoginORSingUp = async (credentialResponse) => {
       }),
     });
     const UserData = await Res.json();
+    console.log(UserData);
     if (UserData.success) {
       return {
         success: true,
         message: "Google Login/Sign Up Successful",
-        UserData: UserData.newUser,
+        UserData: UserData.UserData,
       };
     } else {
       return {
@@ -46,9 +45,8 @@ export const handleUserGoogleLoginORSingUp = async (credentialResponse) => {
   }
 };
 
-
 export const sendUserData = async (userId) => {
-  console.log(userId)
+  console.log(userId);
   try {
     const res = await fetch(`${BACKEND_URI}/api/user/getuser`, {
       method: "POST",

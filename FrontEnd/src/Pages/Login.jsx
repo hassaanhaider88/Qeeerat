@@ -6,24 +6,46 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { hanldeUserLogin } from "../Services/MoreOptions";
 import useUserData from "../store/useUserData";
+import { GoogleLogin } from "@react-oauth/google";
+import { handleUserGoogleLoginORSingUp } from "../utils/googleLogin";
 
 const Login = () => {
   var navigate = useNavigate();
-  const { setIsUserLogin } = useUserData();
+  const { setIsUserLogin, setUserData } = useUserData();
   const [UEmail, setUEmail] = useState("");
   const [UPass, setUPass] = useState("");
-  const handleLoginSubmit = (e) => {
+
+  const hanldeGoogleLoginClick = async (credentialResponse) => {
+    const Res = await handleUserGoogleLoginORSingUp(credentialResponse);
+
+    console.log(Res);
+    if (Res.success) {
+      toast.success("Google Login/Sign Up Successful");
+      setUserData(Res?.UserData._id);
+      const QiratAppUser = {
+        userId: Res.UserData._id,
+      };
+      localStorage.setItem("QeeeratUserData", JSON.stringify(QiratAppUser));
+      setIsUserLogin(true);
+      navigate("/");
+    } else {
+      toast.error("Google Login/Sign Up Failed");
+      return;
+    }
+  };
+
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    var Res = hanldeUserLogin(UEmail, UPass);
+    var Res = await hanldeUserLogin(UEmail, UPass);
     if (Res) {
       toast.success("Login Successful");
       setIsUserLogin(true);
-
-      //   window.location.href = '/'
       navigate("/");
-      // proceed to login
     } else {
-      toast.error("Invalid Email or Password");
+      setUEmail("");
+      setUPass("");
+      setIsUserLogin(false);
+      return;
       // show error
     }
   };
@@ -41,12 +63,23 @@ const Login = () => {
           <h2 className="text-2xl font-semibold mb-6 text-center text-gray-400">
             Welcome Back
           </h2>
+          <button className="mt-8 ml-8 hover:opacity-90 transition-all flex items-center justify-center">
+            <GoogleLogin
+              text="continue_with"
+              logo_alignment="center"
+              width="320"
+              shape="circle"
+              onSuccess={(credentialResponse) => {
+                hanldeGoogleLoginClick(credentialResponse);
+              }}
+            />
+          </button>
           <form
             onSubmit={(e) => handleLoginSubmit(e)}
             className="px-3  w-[400px] flex flex-col items-center justify-center"
           >
             {/* User Name  */}
-            <span className="flex items-center mt-6 mb-6 w-full px-4 bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
+            <span className="flex items-center mt-6 mb-3 w-full px-4 bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
               <AiOutlineMail size={20} color="#6B7280" />
               <input
                 type="email"
@@ -59,7 +92,7 @@ const Login = () => {
             </span>
 
             {/* User Password  */}
-            <span className="flex items-center mt-6 mb-6 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
+            <span className="flex items-center mt-2 mb-6 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
               <BiLockAlt size={20} color="#6B7280" />
               <input
                 type="password"
@@ -71,10 +104,7 @@ const Login = () => {
               />
             </span>
             <div className="text-right py-4">
-              <Link
-                to="/forgot-pass"
-                className="text-blue-600 underline"
-              >
+              <Link to="/forgot-pass" className="text-blue-600 underline">
                 Forgot Password
               </Link>
             </div>
@@ -95,17 +125,6 @@ const Login = () => {
               Signup
             </Link>
           </p>
-          <button
-            type="button"
-            className="w-full flex items-center gap-2 justify-center my-3 bg-white border border-gray-500/30 py-2.5 rounded-full text-gray-800"
-          >
-            <img
-              className="h-4 w-4"
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleFavicon.png"
-              alt="googleFavicon"
-            />
-            Log in with Google
-          </button>
         </div>
       </div>
     </div>

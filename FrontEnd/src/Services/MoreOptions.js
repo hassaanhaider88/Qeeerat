@@ -2,6 +2,7 @@ import usePostData from "../Store/usePostData";
 import PostData from "../DummyData/PostData.js";
 import { toast } from "react-toastify";
 import User from "../DummyData/User.js";
+import BACKEND_URI from "../utils/BackEndURI.js";
 
 export const hanldeUserNotInterestInPost = () => {
   // here will be first getiing post url then make request
@@ -127,33 +128,66 @@ export const hanldeUserUpdatePassword = (NewPass) => {
   }
 };
 
-export const handleUserCreateAccount = (
+export const handleUserCreateAccount = async (
   UName,
   UEmail,
   UserSelectProfileImg,
   UPass
 ) => {
-  toast.success("Successfully Created Account");
-  console.log(UserSelectProfileImg, UName, UEmail); // this is whole event ref to get user selected image
-  localStorage.setItem(
-    "QeeeratUserData",
-    JSON.stringify({
-      _id: "1234567890sdfjka56asd",
-    })
-  );
-
-  return true;
+  var res = await fetch(`${BACKEND_URI}/api/user/sign-up`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: UName,
+      email: UEmail,
+      password: UPass,
+      imageUrl: UserSelectProfileImg,
+    }),
+  });
+  const data = await res.json();
+  console.log(data, "more option");
+  if (data.success) {
+    localStorage.setItem(
+      "QeeeratUserData",
+      JSON.stringify({
+        userId: data.userData,
+      })
+    );
+    return true;
+  } else {
+    toast.error(data.message);
+    return false;
+  }
 };
 
-export const hanldeUserLogin = (UEmail, UPass) => {
+export const hanldeUserLogin = async (UEmail, UPass) => {
   // here will be api call to login user
-  localStorage.setItem(
-    "QeeeratUserData",
-    JSON.stringify({
-      _id: "1234567890sdfjka56asd",
-    })
-  );
-  return true;
+  const res = await fetch(`${BACKEND_URI}/api/user/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: UEmail,
+      password: UPass,
+    }),
+  });
+  const data = await res.json();
+  console.log(data);
+  if (data.success) {
+    localStorage.setItem(
+      "QeeeratUserData",
+      JSON.stringify({
+        userId: data.userData,
+      })
+    );
+    return true;
+  } else {
+    toast.error(data.message);
+    return false;
+  }
 };
 
 export const handleUserRequestToResetPas = () => {
