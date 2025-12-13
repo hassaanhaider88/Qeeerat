@@ -1,7 +1,4 @@
-import { useEffect } from "react";
 import { create } from "zustand";
-import User from "../DummyData/User";
-import { sendUserData } from "../utils/googleLogin";
 
 // Zustand store
 const useUserData = create((set) => ({

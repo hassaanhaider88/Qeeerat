@@ -3,6 +3,7 @@ import PostData from "../DummyData/PostData.js";
 import { toast } from "react-toastify";
 import User from "../DummyData/User.js";
 import BACKEND_URI from "../utils/BackEndURI.js";
+const StoreUser = JSON.parse(localStorage.getItem("QeeeratUserData"));
 
 export const hanldeUserNotInterestInPost = () => {
   // here will be first getiing post url then make request
@@ -190,15 +191,31 @@ export const hanldeUserLogin = async (UEmail, UPass) => {
   }
 };
 
-export const handleUserRequestToResetPas = () => {
+export const handleUserRequestToResetPas = async (email) => {
   // here will real request gone
-  toast.success("Request Sent Successfully");
-  return true;
-};
-
-export const hanldeUserConfirmEmailOTP = (otp) => {
-  // here will be api call to confirm otp
-  return true;
+  try {
+    var res = await fetch(`${BACKEND_URI}/api/user/forgot-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+    if (data.success) {
+      toast.success(data.message);
+      return true;
+    } else {
+      toast.error(data.message);
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };
 
 export const handleUserGettingSingleVidoe = (videoID) => {
@@ -227,7 +244,31 @@ export const handleUserCheck = (UserId) => {
   }
 };
 
-export const handleUserFollowClick = (userId) => {
+export const handleUserFollowClick = async (userId, action) => {
+  // action  will be either follow or unfollow
+  try {
+    console.log(userId, action,StoreUser);
+    var res = await fetch(`${BACKEND_URI}/api/user/follow`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        action,
+        followerId : StoreUser.userId
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+    if (!data.success) {
+      return data;
+    } else {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
   return true;
   // var GetIdForLS = JSON.parse(localStorage.getItem("QeeeratUserData"));
   // if (String(GetIdForLS) === String(userId)) {

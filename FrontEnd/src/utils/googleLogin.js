@@ -45,7 +45,7 @@ export const handleUserGoogleLoginORSingUp = async (credentialResponse) => {
   }
 };
 
-export const sendUserData = async (userId) => {
+export const getUserData = async (userId) => {
   console.log(userId);
   try {
     const res = await fetch(`${BACKEND_URI}/api/user/getuser`, {

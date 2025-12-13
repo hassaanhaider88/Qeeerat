@@ -8,41 +8,90 @@ import { countryToFlag } from "../Services/FlagAbbrivation";
 import timeAgo from "../Services/TimeAgo";
 import UserProfilePost from "../Components/UserProfilePost";
 import ReduceNumber from "../Services/ReduceNumber";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   handleUserCheck,
   handleUserFollowClick,
 } from "../Services/MoreOptions";
 import useUserData from "../store/useUserData";
+import { getUserData } from "../utils/googleLogin";
+import { toast } from "react-toastify";
 
 const Profile = () => {
-  const { userData } = useUserData();
+  const { userData, setUserData } = useUserData();
+  const [User, setUser] = useState({});
   const [IsVarifed, setIsVarifed] = useState(userData?.VerifiedUser);
   const [Loading, setLoading] = useState(false);
   const [IsFollowed, setIsFollowed] = useState(false);
+  const [IsSameUser, setIsSameUser] = useState(false);
   const [IsSameUserViewingProfile, setIsSameUserViewingProfile] =
     useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const UserId = searchParams.get("UserId");
-  const handleFollowClick = () => {
-    var Res = handleUserFollowClick();
-    if (Res) {
+  const userID = searchParams.get("UserId");
+  const handleFollowClick = async () => {
+    const res = await handleUserFollowClick(
+      userID,
+      IsFollowed ? "unfollow" : "follow"
+    );
+    console.log(res);
+    if (res?.success) {
+      toast.success(res?.message);
+      if (res?.message == "User unfollowed successfully") {
+        setIsFollowed(false);
+      } else if (res?.message == "User followed successfully") {
+        setIsFollowed(true);
+      } else {
+        setIsFollowed(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    // check for user same which is loged in
+    // here also data will be updated
+    console.log(userID);
+
+    const fetchUserData = async () => {
+      if (userID && userID !== userData?._id) {
+        console.log("user is deffered");
+        var Res = await getUserData(userID);
+        console.log(Res);
+        if (Res.success) {
+          setUser(Res.UserData);
+          setIsSameUserViewingProfile(false);
+        } else {
+          setIsSameUserViewingProfile(true);
+
+          setUser({});
+        }
+      } else {
+        console.log("same user");
+        console.log(userData);
+        var Res = await getUserData(userData?.userId);
+        console.log(Res);
+        if (Res.success) {
+          setUser(Res.UserData);
+          setIsSameUserViewingProfile(true);
+        } else {
+          setIsSameUserViewingProfile(false);
+          setUser({});
+        }
+      }
+    };
+    fetchUserData();
+  }, [IsFollowed]);
+  useEffect(() => {
+    // check if user is in followers or no
+    console.log(User);
+    var CheckUserFollow = User.FollowerList?.includes(userData?.userId);
+    console.log(CheckUserFollow);
+    if (CheckUserFollow) {
       setIsFollowed(true);
     } else {
       setIsFollowed(false);
     }
-  };
-  useEffect(() => {
-    // check for user same which is loged in
-    // here also data will be updated
-    var Res = handleUserCheck(UserId, IsFollowed, setIsFollowed);
-    if (Res) {
-      setIsSameUserViewingProfile(true);
-    } else {
-      setIsSameUserViewingProfile(false);
-    }
-  }, []);
+  }, [User]);
   const [ActiveTab, setActiveTab] = useGlobalState("ActiveTab", "Posts", {
     persist: true,
   });
@@ -70,8 +119,9 @@ const Profile = () => {
         </div>
         <div className="EditProfileDiv absolute bottom-10 left-15 cursor-pointer w-30 h-30 rounded-full overflow-hidden border-4 border-white">
           <img
-            src={userData?.picture}
-            alt={userData?.name}
+            className="w-full h-full "
+            src={User?.picture}
+            alt={User?.name}
           />
         </div>
         {IsSameUserViewingProfile && (
@@ -89,7 +139,7 @@ const Profile = () => {
             IsVarifed ? "gap-2" : "gap-4"
           }`}
         >
-          {userData?.name}
+          {User?.name}
           {IsVarifed ? (
             <RiVerifiedBadgeFill
               className="ssm:block mt-1.5 hidden"
@@ -100,7 +150,10 @@ const Profile = () => {
             ""
           )}
           {IsSameUserViewingProfile ? (
-            <button className="py-1 mt-1.5 px-3 rounded-full cursor-pointer hover:scale-95 duration-300 transition-all active:outline-1 outline-[#813288] hover:border-[#813288] hover:text-[#813288] border border-gray-200 text-sm">
+            <button
+              onClick={() => navigate("/get-varify")}
+              className="py-1 mt-1.5 px-3 rounded-full cursor-pointer hover:scale-95 duration-300 transition-all active:outline-1 outline-[#813288] hover:border-[#813288] hover:text-[#813288] border border-gray-200 text-sm"
+            >
               Get Varified
             </button>
           ) : (
@@ -112,20 +165,24 @@ const Profile = () => {
             </button>
           )}
         </h1>
-        <p className="text-[#888787]">@{userData?.userName}</p>
+        <p className="text-[#888787]">@{User?.userName}</p>
         <p className=" py-2">
           {/* React Js | Next Js | MERN Stack | APIs Developer with 2 years of
           Experience in Development Always looking for Opportunities and ideas
           Implementation.React Js | Next Js | MERN Stack | APIs Developer with 2
           years of Experience in Development Always looking for Opportunities
           and ideas Implementation. */}
-          {userData?.Bio}
+          {User?.Bio || "No Bio Available"}
         </p>
         <div className="AdditoionalInfo w-full flex justify-evenly items-center">
-          <p className="text-[#888787]  ">{ReduceNumber(userData?.NumberOfFollower)} Followers</p>
-          <p className="text-[#888787]">{ReduceNumber(userData?.NumberOfFollowing)} Following</p>
+          <p className="text-[#888787]  ">
+            {ReduceNumber(User?.Followers)} Followers
+          </p>
+          {/* <p className="text-[#888787]">
+            {ReduceNumber(User?.NumberOfFollowing)} Following
+          </p> */}
           <p className="text-[#888787] flex  gap-2 items-center">
-            <ImLocation /> {userData?.Location}
+            <ImLocation /> {User?.Location}
             <span class={`flag-icon flag-icon-${CountryFlagAbbir}`}></span>{" "}
           </p>
           <p className="text-[#888787] flex  gap-2 items-center">
@@ -160,7 +217,7 @@ const Profile = () => {
           Saved
         </button>
       </div>
-      <div className="TabDataShowingHere bg-[#333333] w-full min-h-screen flex justify-center items-center flex-col gap-5">
+      {/* <div className="TabDataShowingHere bg-[#333333] w-full min-h-screen flex justify-center items-center flex-col gap-5">
         {Loading ? (
           <div className="spinner"></div>
         ) : ActiveTab === "Posts" ? (
@@ -170,7 +227,7 @@ const Profile = () => {
         ) : (
           <UserProfilePost WhichTypeOfPost={"Saved"} />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { hanldeUserConfirmEmailOTP } from "../Services/MoreOptions";
+import VerifyOTP from "../utils/VerifyOTP";
 
-const TwoFactorAuthOTP = () => {
+const TwoFactorAuthOTP = ({email}) => {
   const inputsRef = useRef([]);
   var navigate = useNavigate();
 
@@ -45,10 +45,10 @@ const TwoFactorAuthOTP = () => {
     e.preventDefault();
     const otp = inputsRef.current.map((input) => input.value).join("");
     console.log(otp);
-    const Res = hanldeUserConfirmEmailOTP(otp);
+    const Res = VerifyOTP(otp, email);
     if (Res) {
       toast.success("Entered OTP:", otp);
-      navigate("/login");
+      // navigate("/login");
     } else {
       toast.error("Invalid OTP");
     }

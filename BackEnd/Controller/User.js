@@ -5,7 +5,6 @@ export async function UserGoogleLoginController(req, res) {
   try {
     const { goolgeId, name, email, picture } = req.body;
     const existingUser = await UserModal.findOne({ email });
-    console.log(existingUser);
     if (existingUser.methodOfLogin == "email") {
       return res.json({
         success: false,
@@ -48,11 +47,18 @@ export async function sendUserDataController(req, res) {
   try {
     const { userId } = req.body;
     const UserData = await UserModal.findById(userId);
-    res.json({
-      success: true,
-      message: "User Data Sent Successfully",
-      UserData,
-    });
+    if (!UserData) {
+      return res.json({
+        success: false,
+        message: "User not found",
+      });
+    } else {
+      res.json({
+        success: true,
+        message: "User Data Sent Successfully",
+        UserData,
+      });
+    }
   } catch (error) {
     res.json({
       success: false,
@@ -148,6 +154,95 @@ export async function UserLoginViaPass(req, res) {
 }
 
 export async function ForGotPasswordController(req, res) {
-  // the functionality to be implemented
-  return;
+  try {
+    const { email } = req.body;
+    // the functionality to be implemented
+    res.json({
+      success: true,
+      message: "Forgot Password Endpoint Reached",
+      email,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "Error in Forgot Password",
+      error: error.message,
+    });
+  }
 }
+
+export async function UserFollowOrUnFollowController(req, res) {
+  try {
+    const { userId, action, followerId } = req.body;
+    if (userId === followerId) {
+      return res.status(400).json({
+        success: false,
+        message: "You cannot follow yourself",
+      });
+    }
+    const user = await UserModal.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    if (action === "follow") {
+      if (user.FollowerList.includes(followerId)) {
+        return res.status(400).json({
+          success: false,
+          message: "User already followed",
+        });
+      }
+
+      user.Followers += 1;
+      user.FollowerList.push(followerId);
+
+      await user.save();
+
+      return res.json({
+        success: true,
+        message: "User followed successfully",
+        user,
+      });
+    }
+
+    // ================= UNFOLLOW =================
+    if (action === "unfollow") {
+      // ❌ Not following
+      if (!user.FollowerList.includes(followerId)) {
+        return res.status(400).json({
+          success: false,
+          message: "You are not following this user",
+        });
+      }
+
+      user.Followers -= 1;
+      user.FollowerList = user.FollowerList.filter(
+        (id) => id.toString() !== followerId
+      );
+
+      await user.save();
+
+      return res.json({
+        success: true,
+        message: "User unfollowed successfully",
+        user,
+      });
+    }
+
+    // ❌ Invalid action
+    return res.status(400).json({
+      success: false,
+      message: "Invalid action type",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error in Follow / Unfollow",
+      error: error.message,
+    });
+  }
+}
+

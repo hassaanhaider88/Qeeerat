@@ -90,11 +90,11 @@ const CustomVideoTag = ({ srcUrl, ShowReelIndex, IDX }) => {
     if (!video) return;
 
     if (IDX === ShowReelIndex) {
-      video.play();
+      video?.play();
       setIsPlaying(true);
       startProgressLoop();
     } else {
-      video.pause();
+      video?.pause();
       setIsPlaying(false);
       stopProgressLoop();
     }

@@ -16,6 +16,7 @@ import EditProfile from "./EditProfile";
 import ChangePass from "./ChangePass";
 import ForgotPass from "./ForgotPass";
 import SinlgeVideo from "./SinlgeVideo";
+import GetVarify from "./GetVarify";
 
 const HomeWithLogin = () => {
   const { userData, setUserData,IsUserLogin } = useUserData();
@@ -51,6 +52,8 @@ const HomeWithLogin = () => {
         <Route path="/change-pass" element={<ChangePass />} />
         <Route path="/forgot-pas" element={<ForgotPass />} />
         <Route path="/single-video" element={<SinlgeVideo />} />
+        <Route path="/get-varify" element={<GetVarify />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
 
